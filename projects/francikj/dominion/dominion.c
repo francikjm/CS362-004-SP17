@@ -752,7 +752,7 @@ int minion(){
 	    {
      if (i != currentPlayer)
      {
-     if ( state->handCount[i] > 3 ) 
+     if ( state->handCount[i] > 3 )
      {
      //discard hand
      while( state->handCount[i] > 0 )
@@ -918,7 +918,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 	      break;
 	    }
 	}
-
 
       return 0;
 		
@@ -1327,6 +1326,7 @@ int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
 	 
   return 0;
 }
+
 
 int updateCoins(int player, struct gameState *state, int bonus)
 {
