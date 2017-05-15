@@ -44,10 +44,12 @@ int main () {
      //+3 Cards
      int preHandCount = G.handCount[currentPlayer];
      printf("Testing Smithy\n");
+     printf("Pre-Hand count = %d\n", preHandCount);
      
     smithyRefactored(&G,handPos);
 
      int postHandCount = G.handCount[currentPlayer];
+     printf("Post-hand count = %d\n", postHandCount);
      if((assertEqual(postHandCount, preHandCount + 3)) == 0){
         printf("Smithy correctly adds 3 cards to currentPlayer's hand\n");
      }else

@@ -14,20 +14,22 @@
 int myAssert(int result, char *s){
   if(result){
     printf("Test PASS\n");
-    //return 0;
+    return 0;
     }else{
     printf("Test FAIL\n result: %s\n", s);
-    //return 1;
+    return 1;
     }
 }
 
 int AfterDrewAdventurerCard(struct gameState*state, int player, int past_handCount){
-	if(state->handCount[player] - 2 != past_handCount){ 
-		 printf("TEST FAILED: Player didn't draw 2 cards.\n");
+	printf("Pre-hand count = %d\n", past_handCount);
+        printf("Post-hand count = %d\n", state->handCount[player]);
+        if(state->handCount[player] - 2 != past_handCount || state->handCount[player] - 1 != past_handCount){ 
+		 printf("TEST FAILED: Player didn't add 2 cards to their hand.\n");
 		 return 0;
 	}
 	
-	else if(state->hand[player][state->handCount[player] - 1] != copper &&
+	if(state->hand[player][state->handCount[player] - 1] != copper &&
 		state->hand[player][state->handCount[player] - 1] != silver &&
 		state->hand[player][state->handCount[player] - 1] != gold){
 			
@@ -57,23 +59,22 @@ int main () {
 
   for(i=0; i< MAX_TESTS; i++) {
 
-     players = 2;//rand() % (MAX_PLAYERS - 1) + 2; //set number of players between 2-4
-     seed = 1;//random(); //pick random seed
+     players = rand() % (MAX_PLAYERS - 1) + 2; //set number of players between 2-4
+     seed = random(); //pick random seed
 
-     initializeGame(2, k, 1, &G);
+     r = initializeGame(players, k, 1, &G);
      assert(r == 0);
 
      int currentPlayer = whoseTurn(&G);
      int nextPlayer = currentPlayer + 1;
-     int origdrawntreasure=0;
-     int drawntreasure=0;
-     int cardDrawn;
+
     
      G.deckCount[currentPlayer] = rand() % MAX_DECK;
      G.discardCount[currentPlayer] = rand() % MAX_DECK;
      G.handCount[currentPlayer] = rand() % MAX_HAND;
 
      handCount = G.handCount[currentPlayer];
+     printf("Pre-hand count = %d\n", handCount);
      deckCount = G.deckCount[currentPlayer];
    
 
@@ -83,40 +84,6 @@ int main () {
 
      cardEffect(adventurer, 1, 1, 1, &G, 1, 1);
      myAssert(AfterDrewAdventurerCard(&G, currentPlayer, handCount), "bug!!");
-
-/////////////////////////////////////////
-     /*printf("Testing drawntreasure increments when treasure is drawn\n");
-         cardDrawn = silver;
-     if (cardDrawn != copper || cardDrawn == silver || cardDrawn == gold){
-        drawntreasure++;
-     }
-
-       if((assertEqual(drawntreasure, origdrawntreasure + 1)) == 0){
-         printf("Silver increments drawntreasure\n");
-       }else
-         printf("Silver failed to increment drawntreasure\n");
-
-     cardDrawn = gold;
-
-     if (cardDrawn != copper || cardDrawn == silver || cardDrawn == gold){
-        drawntreasure++;
-     }
-
-       if((assertEqual(drawntreasure, origdrawntreasure + 2)) == 0){
-         printf("Gold increments drawntreasure\n");
-       }else
-          printf("Gold failed to increment drawntreasure\n");
-
-     cardDrawn = copper;
-
-     if (cardDrawn != copper || cardDrawn == silver || cardDrawn == gold){
-        drawntreasure++;
-     }
-          if((assertEqual(drawntreasure, origdrawntreasure + 3)) == 0){
-          printf("Copper increments drawntreasure\n");
-       }else
-          printf("Copper failed to increment drawntreasure\n");*/
-///////////////////////////////////////////
   }
 
   printf("Tests Complete\n");

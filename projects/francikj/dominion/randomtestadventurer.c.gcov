@@ -1,0 +1,99 @@
+        -:    0:Source:randomtestadventurer.c
+        -:    0:Graph:randomtestadventurer.gcno
+        -:    0:Data:randomtestadventurer.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1://randomtestadventurer.c
+        -:    2:
+        -:    3:#include "dominion.h"
+        -:    4:#include "dominion_helpers.h"
+        -:    5:#include <string.h>
+        -:    6:#include <stdio.h>
+        -:    7:#include <assert.h>
+        -:    8:#include "rngs.h"
+        -:    9:#include <math.h>
+        -:   10:#include <time.h>
+        -:   11:
+        -:   12:#define MAX_TESTS 10
+        -:   13:
+       10:   14:int myAssert(int result, char *s){
+       10:   15:  if(result){
+    #####:   16:    printf("Test PASS\n");
+    #####:   17:    return 0;
+        -:   18:    }else{
+       10:   19:    printf("Test FAIL\n result: %s\n", s);
+       10:   20:    return 1;
+        -:   21:    }
+        -:   22:}
+        -:   23:
+       10:   24:int AfterDrewAdventurerCard(struct gameState*state, int player, int past_handCount){
+       10:   25:	printf("Pre-hand count = %d\n", past_handCount);
+       10:   26:        printf("Post-hand count = %d\n", state->handCount[player]);
+       10:   27:        if(state->handCount[player] - 2 != past_handCount || state->handCount[player] - 1 != past_handCount){ 
+       10:   28:		 printf("TEST FAILED: Player didn't add 2 cards to their hand.\n");
+       10:   29:		 return 0;
+        -:   30:	}
+        -:   31:	
+    #####:   32:	if(state->hand[player][state->handCount[player] - 1] != copper &&
+    #####:   33:		state->hand[player][state->handCount[player] - 1] != silver &&
+    #####:   34:		state->hand[player][state->handCount[player] - 1] != gold){
+        -:   35:			
+    #####:   36:		printf("TEST FAILED: Player's didn't get first treasure card.\n");
+    #####:   37:		 return 0;	
+        -:   38:			}
+        -:   39:	
+    #####:   40:	else if(state->hand[player][state->handCount[player] - 2] != copper &&
+    #####:   41:		state->hand[player][state->handCount[player] - 2] != silver &&
+    #####:   42:		state->hand[player][state->handCount[player] - 2] != gold){
+        -:   43:			
+    #####:   44:		printf("TEST FAILED: Player's didn't get second treasure card.\n");
+    #####:   45:		 return 0;	
+        -:   46:			}
+        -:   47:			
+    #####:   48:		return 1;
+        -:   49:}
+        -:   50:
+        1:   51:int main () {
+        -:   52:
+        -:   53:  int r, i, players, handCount, deckCount, seed;
+        -:   54:
+        1:   55:  int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   56:               remodel, smithy, village, baron, great_hall};
+        -:   57:
+        -:   58:  struct gameState G;
+        -:   59:
+       11:   60:  for(i=0; i< MAX_TESTS; i++) {
+        -:   61:
+       10:   62:     players = rand() % (MAX_PLAYERS - 1) + 2; //set number of players between 2-4
+       10:   63:     seed = random(); //pick random seed
+        -:   64:
+       10:   65:     r = initializeGame(players, k, 1, &G);
+       10:   66:     assert(r == 0);
+        -:   67:
+       10:   68:     int currentPlayer = whoseTurn(&G);
+       10:   69:     int nextPlayer = currentPlayer + 1;
+        -:   70:
+        -:   71:    
+       10:   72:     G.deckCount[currentPlayer] = rand() % MAX_DECK;
+       10:   73:     G.discardCount[currentPlayer] = rand() % MAX_DECK;
+       10:   74:     G.handCount[currentPlayer] = rand() % MAX_HAND;
+        -:   75:
+       10:   76:     handCount = G.handCount[currentPlayer];
+       10:   77:     printf("Pre-hand count = %d\n", handCount);
+       10:   78:     deckCount = G.deckCount[currentPlayer];
+        -:   79:   
+        -:   80:
+       10:   81:     if (nextPlayer > (G.numPlayers - 1)){
+    #####:   82:        nextPlayer = 0;
+        -:   83:     }
+        -:   84:
+       10:   85:     cardEffect(adventurer, 1, 1, 1, &G, 1, 1);
+       10:   86:     myAssert(AfterDrewAdventurerCard(&G, currentPlayer, handCount), "bug!!");
+        -:   87:  }
+        -:   88:
+        1:   89:  printf("Tests Complete\n");
+        -:   90:  
+        -:   91:  
+        1:   92:  return 0;
+        -:   93:}
+        -:   94:
