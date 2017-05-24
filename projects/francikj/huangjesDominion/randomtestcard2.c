@@ -29,6 +29,7 @@ int AfterSteward(struct gameState* state, int player, int past_handCount, int ch
    printf("Post-coin count = %d\n", state->coins);
    printf("Pre-discard count = %d\n", past_handCount);
    printf("Post-discard count = %d\n", state->handCount[player]);
+   printf("Choice was %d\n", choice);
 
    if(choice == 1){
       if(state->handCount[player] != (past_handCount + 2)){
@@ -42,7 +43,7 @@ int AfterSteward(struct gameState* state, int player, int past_handCount, int ch
          return 0;
       }
    }
-   else{
+   if(choice == 3){
       if(state->handCount[player] != (past_handCount - 2)){
          printf("TEST FAILED: 2 cards were not discarded from the player's hand.\n");
          return 0;

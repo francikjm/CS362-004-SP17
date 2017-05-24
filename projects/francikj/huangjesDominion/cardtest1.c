@@ -42,7 +42,7 @@ int main () {
 
      printf("Testing drawntreasure increments when treasure is drawn\n");
          cardDrawn = silver;
-     if (cardDrawn != copper || cardDrawn == silver || cardDrawn == gold){
+     if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold){
         drawntreasure++;
      }
      
@@ -53,7 +53,7 @@ int main () {
         
      cardDrawn = gold;
      
-     if (cardDrawn != copper || cardDrawn == silver || cardDrawn == gold){
+     if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold){
         drawntreasure++;
      }
     
@@ -64,7 +64,7 @@ int main () {
    
      cardDrawn = copper;
      
-     if (cardDrawn != copper || cardDrawn == silver || cardDrawn == gold){
+     if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold){
         drawntreasure++;
      }
           if((assertEqual(drawntreasure, origdrawntreasure + 3)) == 0){

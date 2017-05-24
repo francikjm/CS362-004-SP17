@@ -17,7 +17,7 @@ int assertEqual(int result, int expected){
     }
 }
 
-int smithyRefactored(struct gameState *state,int);
+//int smithyRefactored(struct gameState *state,int);
 
 
 int main () {
@@ -46,7 +46,7 @@ int main () {
      printf("Testing Smithy\n");
      printf("Pre-Hand count = %d\n", preHandCount);
      
-    smithyRefactored(&G,handPos);
+    playSmithy(currentPlayer, &G, handPos);
 
      int postHandCount = G.handCount[currentPlayer];
      printf("Post-hand count = %d\n", postHandCount);
