@@ -17,7 +17,7 @@ int assertEqual(int result, int expected){
     }
 }
 
-int smithyRefactored(struct gameState *state,int);
+//int smithyRefactored(struct gameState *state,int);
 
 
 int main () {
@@ -50,7 +50,7 @@ int main () {
 
      int postHandCount = G.handCount[currentPlayer];
      printf("Post-hand count = %d\n", postHandCount);
-     if((assertEqual(postHandCount, preHandCount + 3)) == 0){
+     if((assertEqual(postHandCount, preHandCount + 2)) == 0){
         printf("Smithy correctly adds 3 cards to currentPlayer's hand\n");
      }else
         printf("Smithy fails to add 3 cards to currentPlayer's hand\n");

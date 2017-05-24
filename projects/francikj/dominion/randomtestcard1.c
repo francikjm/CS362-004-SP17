@@ -25,7 +25,7 @@ int myAssert(int result, char *s){
 int AfterSmithy(struct gameState* state, int player, int past_handCount){
   printf("Pre-hand count = %d\n", past_handCount);
   printf("Post-hand count = %d\n", state->handCount[player]); 
-  if(state->handCount[player] - 3 != past_handCount){
+  if(state->handCount[player] - 2 != past_handCount){
       printf("TEST FAILED: 3 cards were not added to player's hand.\n");
       return 0;
    }
